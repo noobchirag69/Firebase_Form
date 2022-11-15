@@ -17,9 +17,11 @@
         .container {
             max-width: 500px;
         }
+
         textarea {
             resize: none;
         }
+
         .alert {
             display: none;
         }
@@ -64,8 +66,15 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js';
         import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 
-        // Importing the Firebase Configuration (Yes, it's hidden!)
-        import firebaseConfig from './config.js';
+        // Configuring Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAWrFn7huN15Tp00HgVOYRbhIo1fTk7uC0",
+            authDomain: "fir-form-62cc1.firebaseapp.com",
+            projectId: "fir-form-62cc1",
+            storageBucket: "fir-form-62cc1.appspot.com",
+            messagingSenderId: "815046885552",
+            appId: "1:815046885552:web:f67f284f4f476cfcffbb75"
+        };
 
         // Initiating Firebase
         const app = initializeApp(firebaseConfig);
