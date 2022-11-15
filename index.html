@@ -34,8 +34,7 @@
         <h1 class="text-center">Get in Touch</h1>
         <p class="mb-4 text-center fw-bold">The message you send will get stored in Firebase!</p>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Sent!</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>Sent successfully!</strong>
         </div>
         <!-- Name -->
         <div class="mb-3">
@@ -63,7 +62,7 @@
     <script type="module">
         // Importing Firebase through CDN
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js';
-        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 
         // Configuring Firebase
         const firebaseConfig = {
@@ -79,7 +78,7 @@
         const app = initializeApp(firebaseConfig);
 
         // Referencing the Realtime Database
-        const formDB = ref(getDatabase(app));
+        const formDB = getDatabase(app);
 
         // Function to Submit the Form Data 
         const form = document.querySelector('#contactForm');
@@ -94,8 +93,16 @@
             // Saving in Database
             saveMessages(name, email, message);
 
+            // Alert
+            const alert = document.querySelector('.alert');
+
             // Triggering the Alert
-            document.querySelector('.alert').style.display = 'block';
+            alert.style.display = 'block';
+
+            // Removing the Alert
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 2000);
 
             // Reset Form
             form.reset();
@@ -103,7 +110,9 @@
 
         // Function to Save the Form Data inside the Database
         function saveMessages(name, email, message) {
-            push(formDB, {
+            const messages = ref(formDB, 'messages');
+            const newMessage = push(messages);
+            set(newMessage, {
                 name: name,
                 email: email,
                 message, message
